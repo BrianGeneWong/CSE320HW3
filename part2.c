@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <inttypes.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 double function(double c, int n, double array[]){
 	double sum=0;
@@ -128,23 +130,71 @@ void app3(){
 }
 
 
-int main(){
-	app2();
-/*
-	char* openFile;
-	FILE* fileName;
-	printf("Input Filename\n");
-	scanf("%s",openFile);
-	fileName=fopen(openFile,"r");
-	if(fileName==NULL){
-		return errno;
+int main(int argc,char **argv){
+	char* fileName=*(argv+1);
+	char* command=malloc(50);
+	while(1){
+		pid_t pid;
+		int status;
+
+		FILE* input;
+		if (fileName==NULL){
+			errno=ENOENT;
+			perror("INPUT FILENAME");
+			return errno;
+
+		}
+		input=fopen(fileName,"r");
+		if(input==NULL){
+			perror("FILE NOT FOUND ERROR");
+			return errno;	
+		}
+		fclose(input);
+		printf("Please input command: ");
+		scanf("%s",command);
+
+		//strcmp the commands
+		if(strcmp(command,"quit")==0){
+			return(0);
+		}
+		else if(strcmp(command,"change")==0){
+			
+			
+
+		}
+		else if(strcmp(command,"solver")==0){
+			
+			if((pid=fork())<0){
+				perror("Failed to fork");
+				return errno;
+				
+			}
+			else if(pid==0){
+				printf("succesfully forked\n");
+				argv[1]=fileName;
+				printf("lol yay didnt seg fault\n");	
+				execve("app1",argv,NULL);
+
+			}
+
+		}
+		else if(strcmp(command,"trace")==0){
+			
+
+		}
+		else if(strcmp(command,"fib")==0){
+			
+
+		}
+
+		else{
+			printf("invalid command");
+			return -1;
+
+		}
+
+		
+		free(command);
 	}
-	char* operation;
-	printf("Input operation\n");
-	scanf("%s",operation);
-	if(strcmp(operation,"solver")==0){
-		app1(fileName);
-	}
-*/
-	return 0;
+	
 }
