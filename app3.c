@@ -6,8 +6,8 @@
 #include <inttypes.h>
 
 int main (int argc,char** argv){
-	FILE* input;
-	int n=93;
+	FILE* output;
+	int n=atoi(*(argv+1));
 //	fscanf(input,"%d",n);
 	uint64_t array[n+1];
 	if(n==0)
@@ -23,8 +23,11 @@ int main (int argc,char** argv){
 		array[i]=array[i-1]+array[i-2];
 		i++;
 	}
-	printf("array[n]= %lu\n", array[n]);
-		
+//	printf("array[n]= %lu\n", array[n]);
+	char* outFile="part2_fib.dat";
+	output=fopen(outFile,"w+");
+	fprintf(output,"%lu",array[n]);
+	fclose(output);	
 	return 0;
 }
 

@@ -21,7 +21,7 @@ int main(int arc, char** argv){
 	}
 	int a,b;
 	fscanf(input,"%d %d",&a,&b);
-	printf("a is %d and b is %d\n",a,b);
+//	printf("a is %d and b is %d\n",a,b);
 	int matrix2[a][b];
 	for (i=0;i<a;i++){
 		for(j=0;j<b;j++){
@@ -51,8 +51,12 @@ int main(int arc, char** argv){
 	int trace=0;
 	for(i=0;i<x;i++){
 		trace+=product[i][i];
-	}	
-	printf("trace is %d\n",trace);
+	}
+	FILE *output;
+	output=fopen("part2_trace.dat","w+");	
+//	printf("trace is %d\n",trace);
+	fprintf(output,"%d",trace);
+	fclose(output);
 	return 0;
 
 }
