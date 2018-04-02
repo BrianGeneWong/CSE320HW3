@@ -76,6 +76,8 @@ int main(int argc,char **argv){
 				execve(app,argv,NULL);
 
 			}
+			waitpid(pid,&status,0);
+			
 
 		}
 		free(command);
