@@ -69,10 +69,12 @@ int main(void) {
     struct wallets* wallet = (struct wallets*)malloc(num_wallets * sizeof(struct wallets));
     fclose(fp);    
     printf("Type 'help' for list of available commands.\n");
+    free(filename);
 prompt:
     printf("prompt> ");
     scanf("%s", command);
     char** argv=NULL;
+    
     if (strcmp(command, "help") == 0) {
         if ((pid = fork()) == 0) {
             execvp("./print_help",argv );
@@ -105,7 +107,7 @@ prompt:
     }
     else if (strcmp(command, "quit") == 0){
 	free(wallet);
-	free(filename);
+//	free(filename);
 	free(command);
         return 0;
     }
