@@ -6,7 +6,7 @@
 #include <inttypes.h>
 #include <sys/types.h>
 #include <unistd.h>
-
+#include <sys/wait.h>
 int main(int argc,char **argv){
 	char* fileName=*(argv+1);
 	FILE* input;

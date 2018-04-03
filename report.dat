@@ -1,0 +1,22 @@
+Brian Wong
+Compiler Errors
+After including part3 in my makefile and compiling it, a few errors popped up
+One of the "include"s was misspelled "inlcude".
+fscanf("%s",filename) and fscanf("%s",command) both needed to be changed to scanf because they did not take in files.
+strcmp() was undefined, so I needed to include <string.h>
+fork() was also undefined, so I included <sys/types.h> and <unistd.h>.
+Including <uinstd.h> also fixed execvp()'s implicit declaration error.
+In line 70, execvp is passed in a null argument where non-null is required.
+To fix this, simply pass a char** that's set to null. Printing help does not actually require an input argument.
+
+After fixing  the compiler errors, I tried running the program.
+
+Trying the generate command would cause a segfault. Using gdb I narrowed it down to line 34, wallet[i].key=key_gen().I looked at both key_gen() and money_gen(). Initially, I thought it was because money was declared as int in the struct and money_gen() returned a uint32_t, but that didn't fix it. Then I realized that we should be generated the user inputted amount of wallets, but generated_wallets() used a hard-coded value. I got rid of the value, and added an extra argument to pass in the user inputted value.
+
+After I generated the wallet and used the print command, I decided to look at the outputfile. Typingwallet_ and then pressing tab did not autocomplete the file name for me. Then I noticed the filename was "wallets_info.dat" instead of "wallet_info.dat", so I changed that in the code.
+Looking at the print method, I noticed that the formats for printing were wrong. Both key and money attribute were uint32_t, so I needed to import <inttypes.h> and use %"PRIu32" to print the values into my file.
+wallet[i].key was also printed twice, so I changed the 2nd one to wallet[i].money  
+
+After using the help function, quit wasn't being printed. The hint told us to disassemble print_help.o, so I used objdump -d to look at the file. After comparing it to the HW3 docuument, I saw that 22:b8 should be 22:bf. I then downloaded hexedit and first looked for 55, the start of the .text section. Then I followed the numbers until I found the correct b8 and changed it to bf.
+
+To check for zombie children, I used ran the program with top. Zombie children were created, so I adde waitpid() before going back to prompt.

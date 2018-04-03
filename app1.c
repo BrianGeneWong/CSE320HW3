@@ -36,12 +36,12 @@ int main(int argc, char** argv){
 	//psuedocode!
 	while(1){
 		c=(a+b)/2;
-		if(c==0)
+                double fOfC=function(c,n,array);
+		if(fOfC==0)
 			break;
-		if((b-a)/2<e)
+		if(((b-a)/2)<e)
 			break;
 		//if sign (f(c))=sign(f(a)) then  a<-c else b<- c
-                double fOfC=function(c,n,array);
 		double fOfA=function(a,n,array);
 		if( fOfC*fOfA>0){
 			a=c;
@@ -49,6 +49,7 @@ int main(int argc, char** argv){
 		else
 			b=c;
 	}
+	printf("%lf\n",c);
 	FILE *solver=fopen("part2_solver.dat","w+");
 	fprintf(solver,"%lf",c);
 	fclose(solver);
