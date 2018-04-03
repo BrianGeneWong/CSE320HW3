@@ -60,6 +60,8 @@ int main(void) {
     fp = fopen(filename, "r");
     if (fp==NULL){
 	perror("FILE DOESNT EXIST");
+	free(filename);
+	free(command);
 	return -1;
 
     }
@@ -103,7 +105,7 @@ prompt:
     }
     else if (strcmp(command, "quit") == 0){
 	free(wallet);
-//	free(filename);
+	free(filename);
 	free(command);
         return 0;
     }

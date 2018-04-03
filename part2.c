@@ -19,12 +19,14 @@ int main(int argc,char **argv){
 		if (fileName==NULL){
 			errno=ENOENT;
 			perror("INPUT FILENAME");
+			free(command);
 			return errno;
 
 		}
 		input=fopen(fileName,"r");
 		if(input==NULL){
 			perror("FILE NOT FOUND ERROR");
+			free(command);
 			return errno;	
 		}
 		fclose(input);
@@ -33,9 +35,12 @@ int main(int argc,char **argv){
 
 		//strcmp the commands
 		if(strcmp(command,"quit")==0){
+			free(command);
 			return(0);
 		}
 		else if(strcmp(command,"change")==0){
+		
+			printf("Input new file name: ");
 			scanf("%s",argv[1]);
 					
 			
