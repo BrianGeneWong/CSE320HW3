@@ -20,3 +20,10 @@ wallet[i].key was also printed twice, so I changed the 2nd one to wallet[i].mone
 After using the help function, quit wasn't being printed. The hint told us to disassemble print_help.o, so I used objdump -d to look at the file. After comparing it to the HW3 docuument, I saw that 22:b8 should be 22:bf. I then downloaded hexedit and first looked for 55, the start of the .text section. Then I followed the numbers until I found the correct b8 and changed it to bf.
 
 To check for zombie children, I used ran the program with top. Zombie children were created, so I adde waitpid() before going back to prompt.
+
+To check for memory leaks, I used valgrind with many of the suggested flags. They give you the lines where you allocated memory. Looking at this, I freed wallet and command before I returned in quit. I also fclose(fp) after fopen()s at 91 and 60.
+However, no matter what I could not get free filename without creating another error in valgrind.
+
+I also added a few lines so that if input file doesnt exist, the program prints and error and exits.
+
+

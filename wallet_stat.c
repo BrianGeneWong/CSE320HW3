@@ -58,6 +58,11 @@ int main(void) {
     printf("Please enter the file name that contains number of wallets: ");
     scanf("%s", filename);
     fp = fopen(filename, "r");
+    if (fp==NULL){
+	perror("FILE DOESNT EXIST");
+	return -1;
+
+    }
     fscanf(fp, "%d", &num_wallets);
     struct wallets* wallet = (struct wallets*)malloc(num_wallets * sizeof(struct wallets));
     fclose(fp);    
@@ -98,7 +103,7 @@ prompt:
     }
     else if (strcmp(command, "quit") == 0){
 	free(wallet);
-	free(filename);
+//	free(filename);
 	free(command);
         return 0;
     }

@@ -7,7 +7,8 @@
 
 int main(int arc, char** argv){
 	FILE* input;
-	input=fopen("matrix.txt","r");
+	input=fopen(*(argv+1),"r");
+
 	int x,y;
 	fscanf(input,"%d %d",&x,&y);
 	int matrix1[x][y];

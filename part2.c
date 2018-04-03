@@ -14,6 +14,7 @@ int main(int argc,char **argv){
 	char* command=malloc(50);
 		pid_t pid;
 		int status;
+		int fib;
 		char* app=NULL;
 		if (fileName==NULL){
 			errno=ENOENT;
@@ -21,6 +22,12 @@ int main(int argc,char **argv){
 			return errno;
 
 		}
+		input=fopen(fileName,"r");
+		if(input==NULL){
+			perror("FILE NOT FOUND ERROR");
+			return errno;	
+		}
+		fclose(input);
 		printf("Please input command: ");
 		scanf("%s",command);
 
@@ -34,29 +41,21 @@ int main(int argc,char **argv){
 			
 		}
 		else if(strcmp(command,"solver")==0){
-			app="app1";
-			input=fopen(fileName,"r");
-			if(input==NULL){
-				perror("FILE NOT FOUND ERROR");
-				return errno;	
-			}
-			fclose(input);
+			app="solver";
 			
 		}
 		else if(strcmp(command,"trace")==0){
-			app="app2";
-			input=fopen(fileName,"r");
-			if(input==NULL){
-				perror("FILE NOT FOUND ERROR");
-				return errno;	
-			}
-			fclose(input);
+			app="trace";
 
 		}
 		else if(strcmp(command,"fib")==0){
+			app="fib";
+			input=fopen(fileName,"r");
+			fscanf(input,"%d",&fib);
+//			printf("fib is %d\n",fib);
+			fclose(input);
 			
-			app="app3";
-		
+			sprintf(argv[1],"%d",fib);	
 		}
 
 		else{
@@ -72,13 +71,14 @@ int main(int argc,char **argv){
 				
 			}
 			else if(pid==0){
-				argv[1]=fileName;
+//				argv[1]=fileName;
 				execve(app,argv,NULL);
-
 			}
-			waitpid(pid,&status,0);
 			
-
+			else{	
+			//	waitpid(pid,&status,0);
+				wait(NULL);
+			}	
 		}
 		free(command);
 	}

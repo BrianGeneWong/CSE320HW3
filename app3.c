@@ -8,6 +8,7 @@
 int main (int argc,char** argv){
 	FILE* output;
 	int n=atoi(*(argv+1));
+//	printf("n is %d\n",n);
 //	fscanf(input,"%d",n);
 	uint64_t array[n+1];
 	if(n==0)

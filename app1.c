@@ -49,7 +49,7 @@ int main(int argc, char** argv){
 		else
 			b=c;
 	}
-	printf("%lf\n",c);
+//	printf("%lf\n",c);
 	FILE *solver=fopen("part2_solver.dat","w+");
 	fprintf(solver,"%lf",c);
 	fclose(solver);
